@@ -65,6 +65,30 @@ const checkBay = (i, j) => {
     }
 }
 
+const checkIsland = (i, j) => {
+    let baycheck = 0;
+    if (i === 0 || i === 224 || j === 0 || j === 224) {
+        return false;
+    }
+    if (planet[i][j - 1].terrain === "land") {
+        baycheck++;
+    }
+    if (planet[i][j + 1].terrain === "land") {
+        baycheck++;
+    }
+    if (planet[i + 1][j].terrain === "land") {
+        baycheck++;
+    }
+    if (planet[i - 1][j].terrain === "land") {
+        baycheck++;
+    }
+    if (baycheck === 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 const createContinents = () => {
     let contSize = Math.floor(Math.random() * 40) + 10;
     let contCenterX = Math.floor(Math.random() * 200) + 10;
@@ -74,16 +98,19 @@ const createContinents = () => {
             if (Math.sqrt(Math.pow(Math.abs(contCenterX - j), 2) + Math.pow(Math.abs(contCenterY - i), 2)) <= contSize) {
                 planet[i][j].terrain = "land";
             } else {
-                let taxidist = Math.abs(contCenterX - j) + Math.abs(contCenterY - i);
+                let taxidist = Math.abs(j - contCenterX) + Math.abs(contCenterY - i);
                 if (Math.random() > (taxidist - contSize) / 50) {
                     planet[i][j].terrain = "land";
                 }
                 if (j === 0 || j === 224) {
                     continue;
                 }
-                if (checkBay(i, j) === true) {
+                if (checkBay(i, j) === true && planet[i][j].terrain === "ocean") {
                     planet[i][j].terrain = "land";
                     console.log("bruh");
+                }
+                if (checkIsland(i, j) === true && planet[i][j].terrain === "land") {
+                    planet[i][j].terrain = "ocean";
                 }
                 // console.log("bruh");
             }
