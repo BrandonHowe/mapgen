@@ -7,10 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css"> -->
 </head>
-<body>
-    <canvas id="myCanvas" style="width: 675px; height: 675px; position: relative; left: -10.5px; top: -10.5px;">
-
-    </canvas>
+<body style="height: 700px;overflow: hidden">
+    <div id="box" style="position: relative; width: 675px; height: 675px; border: 1px solid black">
+        <canvas id="myCanvas" style="width: 675px; height: 675px; position: absolute; left: -0.5px; top: -0.5px; display: inline-block"></canvas>
+        <canvas id="dotcanvas" style="width: 675px; height: 675px; position: absolute; left: -0.5px; top: -0.5px; display: inline-block; z-index: 1"></canvas>
+    </div>
+    <h1 id="name" style="display: inline-block; position: relative; top: -650px; left: 675px;">The World of Imperia</h1>
 </body>
 </html>
 <script src="index.js"></script>
